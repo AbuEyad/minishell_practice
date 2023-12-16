@@ -1,6 +1,6 @@
 NAME = main
 CC = cc
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = #-Wall -Werror -Wextra 
 INCS_DIR = includes/
 INCS = main.h
 LIBFT= libft.a
@@ -11,11 +11,11 @@ OBJ = $(SRC:.c=.o)
 %.o: %.c 
 	$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@ 
 
-all: $(NAME) $(LIBFT)
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C lib
-	$(CC) $(CFLAGS) lib/$(LIBFT) $(OBJ) -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(OBJ) lib/$(LIBFT) -lreadline -o $(NAME) 
 
 clean:
 	make -C lib clean

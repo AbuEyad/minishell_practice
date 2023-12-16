@@ -7,4 +7,5 @@
 #include <readline/history.h>
 #include <sys/wait.h>
 #include "../lib/inc/libft.h"
+#include <fcntl.h>
 #endif
