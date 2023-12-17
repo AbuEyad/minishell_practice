@@ -15,7 +15,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C lib
-	$(CC) $(CFLAGS) $(OBJ) lib/$(LIBFT) -lreadline -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJ) lib/$(LIBFT) -lreadline -o $(NAME)
 
 clean:
 	make -C lib clean

@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <sys/wait.h>
+#include <sys/wait.h> 
 #include "../lib/inc/libft.h"
-#include <fcntl.h>
+#include <fcntl.h> //for open
 #endif
