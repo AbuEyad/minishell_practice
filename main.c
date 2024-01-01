@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 10:45:17 by habu-zua          #+#    #+#             */
-/*   Updated: 2023/12/17 14:19:06 by habu-zua         ###   ########.fr       */
+/*   Updated: 2023/12/31 13:26:21 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ char *ft_getpath(char *cmd, char *envpath)
     return (NULL);
 }
 
+void print_cmd(char **cmd)
+{
+	int i;
+	i = 0;
+	while(cmd[i])
+	{
+		printf("cmd[%d] = %s\n", i, cmd[i]);
+		i++;
+	}
+}
+
 int main(int ac, char **av, char **env)
 {
 	(void)ac;
@@ -72,6 +83,8 @@ int main(int ac, char **av, char **env)
 			exit(0);
 		}
 	   	cmd = ft_split(input, ' ');
+		
+		print_cmd(cmd);
 		//you can run execuve without fork but this will exit the shell once the command is done.
 		path = ft_getpath(cmd[0], getenv("PATH"));
 	   	if (fork() == 0)

@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "charitr.h": "c",
+        "node.h": "c",
+        "parser.h": "c",
+        "guards.h": "c",
+        "str.h": "c",
+        "token.h": "c"
+    }
+}

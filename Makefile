@@ -9,7 +9,7 @@ SRC = main.c
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c 
-	$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@ 
+	$(CC) $(CFLAGS) -I $(INCS_DIR)/INCS -c $< -o $@ 
 
 all: $(NAME)
 
