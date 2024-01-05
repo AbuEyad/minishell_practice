@@ -1,114 +1,89 @@
-#ifndef VEC_H
-#define VEC_H
-
+#include <string.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <stdio.h>
+#include "../include/Str.h"
+#include "../include/Vec.h"
 
-/**
- * Vec - a dynamically growable array of any type.
- */
+static char NULL_CHAR = '\0';
 
-/**
- * The Vec struct is a "thick pointer".
- *
- * Users of Vec should not access these members directly!
- * Instead, use the operations exposed in the functions below.
- */
-typedef struct Vec {
-    size_t item_size; /* size of an item in bytes */
-    size_t length;    /* number of items in Vec */
-    size_t capacity;  /* number of items buffer can store */
-    void *buffer;     /* heap memory storing items */
-} Vec;
+Str Str_value(size_t capacity)
+{
+    Str s = Vec_value(capacity + 1, sizeof(char));
+    // TODO: Replace the below lines with a call below to Vec_set
+    // once you have Vec_set correctly implemented
+    s.length = 1;
+    char *buffer = (char*) s.buffer;
+    buffer[0] = NULL_CHAR;
+    Vec_set(&s, 0, &NULL_CHAR);
+    return s;
+}
 
-/* Constructor / Destructor */
+void Str_drop(Str *self)
+{
+    Vec_drop(self);
+}
 
-/**
- * Construct a Vec value. Owner is responsible for calling
- * Vec_drop when its lifetime expires.
- *
- * @param capacity - initial number of items it can store
- * @param item_size - sizeof an individual item
- * @return initialized Vec value.
- */
-Vec Vec_value(size_t capacity, size_t item_size);
+size_t Str_length(const Str *self)
+{
+    return Vec_length(self) - 1;
+}
 
-/**
- * Owner must call to expire a Vec value's lifetime.
- * Frees any heap memory the Vec owns.
- * Resets length, capacity to zero, buffer to NULL.
- */
-void Vec_drop(Vec *self);
+const char* Str_cstr(const Str *self)
+{
+    return (char*) Vec_ref(self, 0);
+}
 
-/* Accessors */
+char* Str_ref(const Str *self, const size_t index)
+{
+    return (char*) Vec_ref(self, index);
+}
+Str Str_from(const char *cstr) {
+   size_t b = strlen(cstr);
+   Str s = Str_value(b+1);
+   Vec_splice(&s, 0, 0, cstr, b);  
+   //memcpy(Str_ref(s, 0), (const void *)cstr, sizeof(cstr));
+   return s;
+}
 
-/**
- * Returns the number of items in the Vec.
- */
-size_t Vec_length(const Vec *self);
+void Str_splice(Str *self, size_t index, size_t delete_count, const char *cstr, size_t insert_count) {   
 
-/**
- * Get a pointer to the item at `index`. You may
- * write to this reference, but not beyond it.
- *
- * The lifetime of this reference expires as soon
- * as any other write operation is performed outside
- * of it because the Vec may relocate its buffer
- * when it runs out of space.
- */
-void* Vec_ref(const Vec *self, size_t index);
+    Vec_splice(self, index, delete_count, cstr, insert_count);          
+//    Vec_set(self, self->length, &NULL_CHAR);      
+}
 
-/* Operations */
 
-/**
- * Copy the item at `index` to the memory of `out`. Attempting
- * to access an invalid index will result in an out of bounds
- * crash.
- */
-void Vec_get(const Vec *self, size_t index, void *out);
+void Str_append(Str *self, const char *cstr) {
+    //size_t clen = strlen(cstr);
+    size_t slen = Str_length(self);
+    size_t i = 0;
+    while (cstr[i] != '\0') {
+        i++;
+    }
+    self->length += i;
+    memcpy(Vec_ref(self, slen), cstr, i * sizeof(char));
+    
+    //Vec_splice(self, slen, 0, cstr, i); 
+}
 
-/**
- * Assign an item at `index` to be a copy of `value`.
- * Valid indices include 0-length. When the index is equal
- * to length, the item is appended to the Vec. Attempting
- * to assign to an `index` greater than length will result
- * in an out of bounds crash.
- */
-void Vec_set(Vec *self, size_t index, const void *value);
+char Str_get(const Str *self, size_t index) {
+     if (index < (self->length) || index >= 0) {
+         return *Str_ref(self, index);
+     } else {
+          fprintf(stderr, "%s:%d - Out of Bounds", __FILE__, __LINE__);
+          exit(EXIT_FAILURE);          
+     }
+}
+void Str_set(Str *self, size_t index, const char value) {
+    if (index == self->length) {
+        Vec_splice(self, index, 0, &value, 1);
+    }
+    if (index < self->length && index >= 0) {
+        memcpy(Vec_ref(self, index), &value, self->item_size); 
+        
+    }     
+    else {
+          fprintf(stderr, "%s:%d - Out of Bounds", __FILE__, __LINE__);
+          exit(EXIT_FAILURE);          
+     }
 
-/**
- * Compare deep equality with another Vec. Should return true
- * if Vecs are equal in length and buffer content.
- */
-bool Vec_equals(const Vec *self, const Vec *other);
-
-/**
- * Starting from `index`, remove `delete_count` items from `self`'s buffer, 
- * and insert `insert_count` values from `items` at that index of `self`.
- * All items inserted become owned by the `Vec`.
- *
- * This is a swiss army knife function for inserting, removing, and overwriting
- * items with a `Vec`.
- *
- * Attempting to delete beyond the end of the Vec's elements or insert beyond
- * the length of the Vec will result in an out of bounds crash.
- *
- * Example - Given:
- * 1. a Vec `v` with elements [100, 200, 300, 400] and an int[] a 
- * 2. an array `a` with elements [800, 900]
- * The following examples are indepentent and assume the starting values above.
- * Call:                        | v's Items after:
- * Vec_splice(&v, 2, 0, a, 2)   | [100, 200, 800, 900, 300, 400]
- * Vec_splice(&v, 2, 1, a, 2)   | [100, 200, 800, 900, 400]
- * Vec_splice(&v, 0, 0, a, 2)   | [800, 900, 100, 200, 300, 400]
- * Vec_splice(&v, 0, 3, a, 1)   | [800, 400]
- */
-void Vec_splice(
-        Vec *self, 
-        size_t index, 
-        size_t delete_count, 
-        const void *items, 
-        size_t insert_count
-        );
-
-#endif
+}

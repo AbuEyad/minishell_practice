@@ -1,5 +1,6 @@
 #include "../include/Parser.h"
 #include "../include/Token.h"
+#include "../include/Scanner.h"
 
 // Grammar
 // NODE         ::= CHAR_NODE | PAIR_NODE

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "../include/StrVec.h"
+#include "../include/Str.h"
 
 StrVec StrVec_value(size_t capacity)
 {

@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "../include/Guards.h"
+
 void OOM_GUARD(void *ptr, char *file, int number)
 {
     if (ptr == NULL) {

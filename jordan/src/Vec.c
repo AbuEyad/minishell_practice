@@ -2,9 +2,8 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "Guards.h"
-
-#include "Vec.h"
+#include "../include/Guards.h"
+#include "../include/Vec.h"
 
 /* Constructor / Destructor */
 

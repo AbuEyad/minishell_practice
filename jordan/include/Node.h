@@ -1,13 +1,17 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include "Str.h"
+#include "StrVec.h"
+
 typedef enum NodeType {
     ERROR_NODE = -1,
-    CHAR_NODE = 0,
+    COMMAND_NODE = 0,
     PAIR_NODE = 1,
 } NodeType;
 
 typedef struct Node Node; // forward declaration
+typedef const char* ErrorValue;
 
 typedef struct PairValue {
     Node *left;
@@ -16,11 +20,10 @@ typedef struct PairValue {
 
 typedef char CharValue;
 
-typedef const char* ErrorValue;
 
 typedef union {
     PairValue pair;
-    CharValue value;
+    CharValue command;
     ErrorValue error;
 } NodeValue;
 

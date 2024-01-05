@@ -14,9 +14,9 @@
 
 // These three functions provide the basis of a REPL:
 // Read-Evaluate-Print-Loop
- size_t read(Str *line, FILE *stream);
- Scanner eval(Str *input);
- void print(Scanner scanner);
+ size_t     read(Str *line, FILE *stream);
+ Scanner    eval(Str *input);
+ void       print(Scanner scanner);
 
 int main()
 { 
