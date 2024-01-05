@@ -1,11 +1,11 @@
-NAME = main
+NAME = minishell
 CC = cc
 CFLAGS = #-Wall -Werror -Wextra 
 INCS_DIR = includes/
 INCS = main.h
 LIBFT= libft.a
 
-SRC = main.c
+SRC = main.c ft_free.c ft_getpath.c ft_print_cmd.c ft_trim_input.c
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c 
