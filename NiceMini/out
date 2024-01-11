@@ -1,0 +1,15 @@
+-rw-------@   1 hish  staff      9 Jan  8 22:51 a
+-rw-r--r--@   1 hish  staff   1856 Jan  8 22:46 main.o
+-rw-rw-r--@   1 hish  staff     29 Jan  8 18:36 .gitignore
+-rw-rw-r--@   1 hish  staff    554 Jan  8 18:36 README.md
+-rw-rw-r--@   1 hish  staff   1128 Jan  8 18:36 Makefile
+-rw-rw-r--@   1 hish  staff   1698 Jan  8 22:46 main.c
+-rw-rw-r--@   1 hish  staff   3282 Jan  8 22:45 minishell.h
+-rwxr-xr-x@   1 hish  staff  55264 Jan  8 22:50 minishell
+drwx------@  14 hish  staff    448 Jan  8 22:51 .
+drwxr-xr-x    5 hish  staff    160 Jan  8 22:38 ..
+drwxrwxr-x@   3 hish  staff     96 Jan  8 18:36 correction
+drwxrwxr-x@  24 hish  staff    768 Jan  8 22:47 parser
+drwxrwxr-x@  28 hish  staff    896 Jan  8 22:49 builtins
+drwxrwxr-x@ 114 hish  staff   3648 Jan  8 22:50 libft
+total 168
