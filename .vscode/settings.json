@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "vec.h": "c"
+        "vec.h": "c",
+        "main.h": "c"
     }
 }

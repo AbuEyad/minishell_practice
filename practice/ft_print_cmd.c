@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_cmd.c                                        :+:      :+:    :+:   */
+/*   ft_print_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:49:54 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/05 16:50:11 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:17:26 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/main.h"
 
-void print_cmd(char **cmd)
+void ft_print_cmd(char **cmd)
 {
 	int i;
 	i = 0;
 	while(cmd[i])
 	{
-		printf("cmd[%d] = %s\n", i, cmd[i]);
+		printf("cmd[%d] = |%s|\n", i, cmd[i]);
 		i++;
 	}
 }

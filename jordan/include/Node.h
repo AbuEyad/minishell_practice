@@ -7,23 +7,23 @@
 typedef enum NodeType {
     ERROR_NODE = -1,
     COMMAND_NODE = 0,
-    PAIR_NODE = 1,
+    PIPE_NODE = 1,
 } NodeType;
 
 typedef struct Node Node; // forward declaration
 typedef const char* ErrorValue;
 
-typedef struct PairValue {
+typedef struct PipeValue {
     Node *left;
     Node *right;
-} PairValue;
+} PipeValue;
 
-typedef char CharValue;
+typedef char* CommandValue;
 
 
 typedef union {
-    PairValue pair;
-    CharValue command;
+    PipeValue pipe;
+    CommandValue command;
     ErrorValue error;
 } NodeValue;
 
@@ -32,8 +32,8 @@ struct Node {
     NodeValue data;
 };
 
-Node* CharNode_new(char c);
-Node* PairNode_new(Node *left, Node *right);
+Node* CommandNode_new(char *command);
+Node* PipeNode_new(Node *left, Node *right);
 Node* ErrorNode_new(const char *msg);
 void* Node_drop(Node *self);
 

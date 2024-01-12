@@ -3,20 +3,20 @@
 #include "../include/Node.h"
 #include "../include/Guards.h"
 
-Node* CharNode_new(char c)
+Node* CommandNode_new(char *command)
 {
     Node* node = malloc(sizeof(Node));
-    node->type = CHAR_NODE;
-    node->data.value = c;
+    node->type = COMMAND_NODE;
+    node->data.command = command;
     return node;
 };
 
-Node* PairNode_new(Node *left, Node *right)
+Node* PipeNode_new(Node *left, Node *right)
 {
     Node* node = malloc(sizeof(Node));
-    node->type = PAIR_NODE;
-    node->data.pair.left = left;
-    node->data.pair.right = right;
+    node->type = PIPE_NODE;
+    node->data.pipe.left = left;
+    node->data.pipe.right = right;
     return node;
 }
 
@@ -30,9 +30,9 @@ Node* ErrorNode_new(const char *msg)
 //ai
 void* Node_drop(Node *self)
 {
-    if(self->type == PAIR_NODE){
-        Node_drop(self->data.pair.left);
-        Node_drop(self->data.pair.right);
+    if(self->type == PIPE_NODE){
+        Node_drop(self->data.pipe.left);
+        Node_drop(self->data.pipe.right);
     }
     free(self);
     return NULL;

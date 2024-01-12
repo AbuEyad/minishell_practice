@@ -10,7 +10,7 @@
 
 typedef enum TokenType {
     END_TOKEN = -1,
-    WORD_TOKEN = 0,
+    COMMAND_TOKEN = 0,
     PIPE_TOKEN = 1
 } TokenType;
 

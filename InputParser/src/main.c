@@ -42,7 +42,8 @@ size_t read(Str *line, FILE *stream) {
     return Str_length(line);
 }
 
-Scanner eval(Str *line) {
+Scanner eval(Str *line) 
+{
     return Scanner_value(CharItr_of_Str(line));
 }
 
